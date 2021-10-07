@@ -1,0 +1,27 @@
+{
+  "name": "koa-blog",
+  "version": "1.0.0",
+  "description": "blog",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ultimaterror/koa-blog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ultimaterror/koa-blog/issues"
+  },
+  "homepage": "https://github.com/Ultimaterror/koa-blog#readme",
+  "dependencies": {
+    "axios": "^0.22.0",
+    "koa": "^2.13.3",
+    "koa-body": "^4.2.0",
+    "koa-router": "^10.1.1",
+    "lodash": "^4.17.21"
+  }
+}
