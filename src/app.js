@@ -196,7 +196,32 @@ router.put('/articles/:id', async (ctx, next) => {
 })
 
 router.delete('/articles/:id', async (ctx, next) => {
-    ctx.body = 'Hello-World5'
+    let jwt = null;
+    await axios.post('https://gql.alcyone.life/auth/local', { identifier: 'itakad@gmail.com', password: 'itakad2020' })
+    .then(async (response) => {
+        jwt = response.data.jwt
+    })
+    .catch(function (error) {
+        console.log('error5-2')
+    })
+    .then(function () {
+        console.log('--- --- ---')
+    });
+
+    let id = ctx.params.id;
+    let article = null;
+    await axios.delete(`https://gql.alcyone.life/Blog-Articles/${id}`, { headers: { Authorization: `Bearer ${jwt}` }
+        }).then(function (response) {
+            article = response.data
+            console.log(article[0].name)
+        })
+        .catch(function (error) {
+            console.log('error5-1')
+        })
+        .then(function () {
+            console.log('--- --- ---')
+        })
+    ctx.body = article;
 })
 
 router.get('/comment', async (ctx, next) => {

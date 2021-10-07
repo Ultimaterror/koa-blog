@@ -58,18 +58,18 @@ axios.get('http://localhost:3000/articles/4')
 // );
 
 // delete one article
-axios.delete('http://localhost:3000/articles/2')
-    .then(function (response) {
-        console.log('Delete article');
-        console.log(response.data);
-    })
-    .catch(function (error) {
-        console.log('error');
-    })
-    .then(function () {
-        console.log('--- --- ---');
-    }
-);
+// axios.delete('http://localhost:3000/articles/8')
+//     .then(function (response) {
+//         console.log('Delete article');
+//         console.log(response.data);
+//     })
+//     .catch(function (error) {
+//         console.log('error');
+//     })
+//     .then(function () {
+//         console.log('--- --- ---');
+//     }
+// );
 
 // get all comments
 axios.get('http://localhost:3000/comment')
