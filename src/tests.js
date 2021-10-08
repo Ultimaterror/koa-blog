@@ -44,7 +44,7 @@ axios.get('http://localhost:3000/articles/4')
 // );
 
 // put/modify one article  OK
-// axios.put('http://localhost:3000/articles/4', {name: "Golf-Alex", content: "Hole-in-one"})
+// axios.put('http://localhost:3000/articles/4', {content: "Three points"})
 //     .then(function (response) {
 //         console.log('Put/Modify article');
 //         console.log(response.data);
@@ -100,43 +100,43 @@ axios.get('http://localhost:3000/comment/1')
 );
 
 // post one comment
-axios.post('http://localhost:3000/comment')
-    .then(function (response) {
-        console.log('');
-        console.log(response.data);
-    })
-    .catch(function (error) {
-        console.log('error');
-    })
-    .then(function () {
-        console.log('--- --- ---');
-    }
-);
+// axios.post('http://localhost:3000/comment')
+//     .then(function (response) {
+//         console.log('');
+//         console.log(response.data);
+//     })
+//     .catch(function (error) {
+//         console.log('error');
+//     })
+//     .then(function () {
+//         console.log('--- --- ---');
+//     }
+// );
 
 // put/modify one comment
-axios.put('http://localhost:3000/comment/1')
-    .then(function (response) {
-        console.log('Put/modify comment');
-        console.log(response.data);
-    })
-    .catch(function (error) {
-        console.log('error');
-    })
-    .then(function () {
-        console.log('--- --- ---');
-    }
-);
+// axios.put('http://localhost:3000/comment/1')
+//     .then(function (response) {
+//         console.log('Put/modify comment');
+//         console.log(response.data);
+//     })
+//     .catch(function (error) {
+//         console.log('error');
+//     })
+//     .then(function () {
+//         console.log('--- --- ---');
+//     }
+// );
 
 // delete one comment
-axios.delete('http://localhost:3000/comment/2')
-    .then(function (response) {
-        console.log('');
-        console.log(response.data);
-    })
-    .catch(function (error) {
-        console.log('error');
-    })
-    .then(function () {
-        console.log('--- --- ---');
-    }
-);
+// axios.delete('http://localhost:3000/comment/2')
+//     .then(function (response) {
+//         console.log('');
+//         console.log(response.data);
+//     })
+//     .catch(function (error) {
+//         console.log('error');
+//     })
+//     .then(function () {
+//         console.log('--- --- ---');
+//     }
+// );

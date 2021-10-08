@@ -14,6 +14,22 @@ app.use(koaBody({ multipart: true }));
 
 var router = new Router();
 
+// function test () {
+//     let jwt = null;
+//     axios.post('https://gql.alcyone.life/auth/local', { identifier: 'itakad@gmail.com', password: 'itakad2020' })
+//     .then(async (response) => {
+//         jwt = response.data.jwt
+//     })
+//     .catch(function (error) {
+//         console.log('error1-2')
+//     })
+//     .then(function () {
+//         console.log('--- --- ---')
+//     });
+//     return jwt;
+// }
+
+// route all articles
 router.get('/articles', async (ctx, next) => {
     let jwt = null;
     await axios.post('https://gql.alcyone.life/auth/local', { identifier: 'itakad@gmail.com', password: 'itakad2020' })
@@ -42,6 +58,7 @@ router.get('/articles', async (ctx, next) => {
     ctx.body = articles;
 })
 
+// route one article
 router.get('/articles/:id', async (ctx, next) => {
     let jwt = null;
     await axios.post('https://gql.alcyone.life/auth/local', { identifier: 'itakad@gmail.com', password: 'itakad2020' })
@@ -58,10 +75,10 @@ router.get('/articles/:id', async (ctx, next) => {
 
     let id = ctx.params.id;
     let article = null;
-    await axios.get(`https://gql.alcyone.life/Blog-Articles?id=${id}`, { headers: { Authorization: `Bearer ${jwt}` }
+    await axios.get(`https://gql.alcyone.life/Blog-Articles/${id}`, { headers: { Authorization: `Bearer ${jwt}` }
         }).then(function (response) {
             article = response.data
-            console.log(article[0].name)
+            console.log(article)
         })
         .catch(function (error) {
             console.log('error2-1')
@@ -72,7 +89,17 @@ router.get('/articles/:id', async (ctx, next) => {
     ctx.body = article;
 })
 
+// route post article
 router.post('/articles', async (ctx, next) => {
+    
+    let {name, content, media} = ctx.request.body;
+    if(!name){
+        ctx.throw('400','name is required field');
+    }
+    if(!content){
+        ctx.throw('400','content is required field');
+    }
+    
     let jwt = null;
     await axios.post('https://gql.alcyone.life/auth/local', { identifier: 'itakad@gmail.com', password: 'itakad2020' })
     .then(async (response) => {
@@ -85,13 +112,6 @@ router.post('/articles', async (ctx, next) => {
         console.log('--- --- ---')
     });
 
-    let {name, content, media} = ctx.request.body;
-    if(!name){
-        ctx.throw('400','name is required field');
-    }
-    if(!content){
-        ctx.throw('400','content is required field');
-    }
     function convertToSlug(str) {
         str = str.replace(/^\s+|\s+$/g, ''); // trim
         str = str.toLowerCase();
@@ -126,6 +146,7 @@ router.post('/articles', async (ctx, next) => {
     ctx.body = article;
 })
 
+// route put article
 router.put('/articles/:id', async (ctx, next) => {
     let jwt = null;
     await axios.post('https://gql.alcyone.life/auth/local', { identifier: 'itakad@gmail.com', password: 'itakad2020' })
@@ -133,7 +154,7 @@ router.put('/articles/:id', async (ctx, next) => {
         jwt = response.data.jwt
     })
     .catch(function (error) {
-        console.log('error3-2')
+        console.log('error4-2')
     })
     .then(function () {
         console.log('--- --- ---')
@@ -141,26 +162,11 @@ router.put('/articles/:id', async (ctx, next) => {
 
     let article = null;
     let id = ctx.params.id;
-    await axios.get(`https://gql.alcyone.life/Blog-Articles?id=${id}`, { headers: { Authorization: `Bearer ${jwt}` }
-        }).then(function (response) {
-            // console.log(response.data)
-            article = response.data
-        })
-        .catch(function (error) {
-            console.log('error4-1')
-        })
-        .then(function () {
-            console.log('--- --- ---')
-        })
+    // let slug = null;
+    
     let {name, content, media} = ctx.request.body;
-    if(!name){
-        let name = article[0].name
-    }
-    if(!content){
-        let content = article[0].content
-    }
-    if(!media){
-        let media = article[0].media
+    if(name){
+        var slug = convertToSlug(name);
     }
     function convertToSlug(str) {
         str = str.replace(/^\s+|\s+$/g, ''); // trim
@@ -179,7 +185,6 @@ router.put('/articles/:id', async (ctx, next) => {
 
         return str;
     }
-    let slug = convertToSlug(name);
 
     await axios.put(`https://gql.alcyone.life/Blog-Articles/${id}`, { name: name, slug: slug, content: content, media: media}, { headers: { Authorization: `Bearer ${jwt}` }
         }).then(function (response) {
@@ -187,7 +192,7 @@ router.put('/articles/:id', async (ctx, next) => {
             article = response.data
         })
         .catch(function (error) {
-            console.log(error)
+            console.log('error4-3')
         })
         .then(function () {
             console.log('--- --- ---')
@@ -195,6 +200,7 @@ router.put('/articles/:id', async (ctx, next) => {
     ctx.body = article;
 })
 
+// route delete article
 router.delete('/articles/:id', async (ctx, next) => {
     let jwt = null;
     await axios.post('https://gql.alcyone.life/auth/local', { identifier: 'itakad@gmail.com', password: 'itakad2020' })
@@ -213,7 +219,7 @@ router.delete('/articles/:id', async (ctx, next) => {
     await axios.delete(`https://gql.alcyone.life/Blog-Articles/${id}`, { headers: { Authorization: `Bearer ${jwt}` }
         }).then(function (response) {
             article = response.data
-            console.log(article[0].name)
+            console.log(article.name)
         })
         .catch(function (error) {
             console.log('error5-1')
@@ -224,22 +230,27 @@ router.delete('/articles/:id', async (ctx, next) => {
     ctx.body = article;
 })
 
+// route all comments
 router.get('/comment', async (ctx, next) => {
     ctx.body = 'Hello-World6'
 })
 
+// route one comment
 router.get('/comment/:id', async (ctx, next) => {
     ctx.body = 'Hello-World7'
 })
 
+// route post comment
 router.post('/comment', async (ctx, next) => {
     ctx.body = 'Hello-World8'
 })
 
+// route put comment
 router.put('/comment/:id', async (ctx, next) => {
     ctx.body = 'Hello-World9'
 })
 
+// route delete comment
 router.delete('/comment/:id', async (ctx, next) => {
     ctx.body = 'Hello-World10'
 })
